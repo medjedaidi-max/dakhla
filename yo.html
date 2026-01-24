@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Section Informatique</title>
+
+  <style>
+    /* MODAL STYLE */
+#modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  justify-content: center;
+  align-items: center;
+}
+
+#modal img {
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 15px;
+  animation: zoom 0.4s ease;
+}
+
+.close {
+  position: absolute;
+  top: 25px;
+  right: 35px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+}
+
+@keyframes zoom {
+  from { transform: scale(0.5); }
+  to { transform: scale(1); }
+}
+
+/* cursor */
+.card img {
+  cursor: pointer;
+}
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #020617, #0f172a);
+      color: white;
+      text-align: center;
+    }
+
+    /* LOGO */
+    .logo {
+      margin-top: 25px;
+    }
+
+    .logo img {
+      width: 120px;
+      animation: pop 1s ease;
+    }
+
+    h1 {
+      margin: 15px 0 30px;
+      font-size: 2em;
+      letter-spacing: 2px;
+    }
+
+    /* GALLERY */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 25px;
+      padding: 30px;
+    }
+
+    .card {
+      background: #020617;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+      transform: translateY(50px);
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+
+    /* PORTRAIT IMAGE */
+    .card img {
+      width: 100%;
+      height: 300px;   /* Portrait */
+      object-fit: cover;
+    }
+
+    .name {
+      padding: 14px;
+      background: #0f172a;
+      font-weight: bold;
+      font-size: 1.1em;
+      border-top: 3px solid #38bdf8;
+    }
+
+    .card:hover {
+      transform: scale(1.06);
+      transition: 0.3s ease;
+    }
+
+    @keyframes fadeUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pop {
+      from { transform: scale(0); }
+      to { transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- LOGO -->
+<div class="logo">
+  <img src="logo.png">
+</div>
+
+<h1>Section Informatique 💻</h1>
+
+<div class="gallery">
+
+  <div class="card">
+    <img src="ena.jpg"
+    onclick="openModal(this)">>
+    <div class="name">omran</div>
+  </div>
+
+  <div class="card">
+    <img src="img2.jpg">
+    <div class="name">Yassine Trabelsi</div>
+  </div>
+
+  <div class="card">
+    <img src="img3.jpg">
+    <div class="name">Mariem Khelifi</div>
+  </div>
+
+  
+  <div class="card">
+    <img src="img4.jpg">
+    <div class="name">Yassine Trabelsi</div>
+  </div>
+
+  <div class="card">
+    <img src="img5.jpg">
+    <div class="name">Mariem Khelifi</div>
+  </div>
+
+  
+  <div class="card">
+    <img src="img6.jpg">
+    <div class="name">Yassine Trabelsi</div>
+  </div>
+
+  <div class="card">
+    <img src="img7.jpg">
+    <div class="name">Mariem Khelifi</div>
+  </div>
+
+
+  
+  <div class="card">
+    <img src="img2.jpg">
+    <div class="name">Yassine Trabelsi</div>
+  </div>
+
+  <div class="card">
+    <img src="img3.jpg">
+    <div class="name">Mariem Khelifi</div>
+  </div>
+
+
+  
+  <div class="card">
+    <img src="img2.jpg">
+    <div class="name">Yassine Trabelsi</div>
+  </div>
+
+  <div class="card">
+    <img src="img3.jpg">
+    <div class="name">Mariem Khelifi</div>
+  </div>
+
+
+  
+  <div class="card">
+    <img src="img2.jpg">
+    <div class="name">Yassine Trabelsi</div>
+  </div>
+
+  <div class="card">
+    <img src="img.jpg">
+    <div class="name">Mariem Khelifi</div>
+  </div>
+
+
+
+</div>
+<!-- MODAL -->
+<div id="modal" onclick="closeModal()">
+  <span class="close">&times;</span>
+  <img id="modalImg">
+</div> 
+<script>
+  function openModal(img) {
+    document.getElementById("modal").style.display = "flex";
+    document.getElementById("modalImg").src = img.src;
+  }
+
+  function closeModal() {
+    document.getElementById("modal").style.display = "none";
+  }
+</script>
+</body>
+</html>
