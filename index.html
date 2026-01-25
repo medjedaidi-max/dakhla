@@ -6,6 +6,11 @@
 
   <style>
     /* MODAL STYLE */
+.hidden {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+}
 #modal {
   display: none;
   position: fixed;
@@ -15,6 +20,18 @@
   justify-content: center;
   align-items: center;
 }
+#searchInput {
+  width: 80%;
+  max-width: 400px;
+  padding: 12px 15px;
+  margin-bottom: 30px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  font-size: 1em;
+  text-align: center;
+}
+
 
 #modal img {
   max-width: 90%;
@@ -61,26 +78,29 @@
 
     h1 {
       margin: 15px 0 30px;
-      font-size: 2em;
+      font-size: 75px;
       letter-spacing: 2px;
     }
 
     /* GALLERY */
     .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 25px;
-      padding: 30px;
+       display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
+  padding: 30px;
+  justify-items: center;
     }
 
     .card {
-      background: #020617;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 15px 30px rgba(0,0,0,0.6);
-      transform: translateY(50px);
-      opacity: 0;
-      animation: fadeUp 0.8s ease forwards;
+       background: #020617;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+  width: 220px;        
+  margin: auto;          
+  transform: translateY(50px);
+  opacity: 0;
+  animation: fadeUp 0.8s ease forwards;
     }
 
     .card:nth-child(1) { animation-delay: 0.1s; }
@@ -96,7 +116,7 @@
 
     .name {
       padding: 14px;
-      background: #0f172a;
+      background: #0c70e2;
       font-weight: bold;
       font-size: 1.1em;
       border-top: 3px solid #38bdf8;
@@ -128,88 +148,68 @@
   <img src="logo.png">
 </div>
 
-<h1>Section Informatique 💻</h1>
+<h1> BAC INFO 2K26</h1>
+<h3> lyceé El canel</h3> <input 
+  type="text" 
+  id="searchInput" 
+  placeholder="Search by name..."
+  onkeyup="searchStudent()"
+>
 
 <div class="gallery">
 
-  <div class="card">
-    <img src="ena.jpg"
-    onclick="openModal(this)">>
+  <div class="card" data-name="omran la3miri hama jedaidi">
+    <img src="images/ena.jpg"
+    onclick="openModal(this)">
     <div class="name">omran</div>
   </div>
-
-  <div class="card">
-    <img src="img2.jpg">
-    <div class="name">Yassine Trabelsi</div>
-  </div>
-
-  <div class="card">
-    <img src="img3.jpg">
-    <div class="name">Mariem Khelifi</div>
-  </div>
-
-  
-  <div class="card">
-    <img src="img4.jpg">
-    <div class="name">Yassine Trabelsi</div>
-  </div>
-
-  <div class="card">
-    <img src="img5.jpg">
-    <div class="name">Mariem Khelifi</div>
-  </div>
-
-  
-  <div class="card">
-    <img src="img6.jpg">
-    <div class="name">Yassine Trabelsi</div>
-  </div>
-
-  <div class="card">
-    <img src="img7.jpg">
-    <div class="name">Mariem Khelifi</div>
-  </div>
+  <div class="card" data-name="nsibi badr bayoudhi bdr ">
+  <img src="images/BDR.jpeg" onclick="openModal(this)">
+  <div class="name">Badr</div>
+</div>
+  <div class="card" data-name="hsn hassen mahouachi hssouna ">
+  <img src="images/hasssen.jpeg" onclick="openModal(this)">
+  <div class="name">hassen</div>
+</div>
+  <div class="card" data-name="Ahmed Ben Ali">
+  <img src="img1.jpg" onclick="openModal(this)">
+  <div class="name">Ahmed Ben Ali</div>
+</div>
+<div class="card" data-name="Ahmed Ben Ali">
+  <img src="img1.jpg" onclick="openModal(this)">
+  <div class="name">Ahmed Ben Ali</div>
+</div>
+<div class="card" data-name="Ahmed Ben Ali">
+  <img src="img1.jpg" onclick="openModal(this)">
+  <div class="name">Ahmed Ben Ali</div>
+</div>
+<div class="card" data-name="Ahmed Ben Ali">
+  <img src="img1.jpg" onclick="openModal(this)">
+  <div  class="name">Ahmed Ben Ali</div>
+</div>
 
 
-  
-  <div class="card">
-    <img src="img2.jpg">
-    <div class="name">Yassine Trabelsi</div>
-  </div>
-
-  <div class="card">
-    <img src="img3.jpg">
-    <div class="name">Mariem Khelifi</div>
-  </div>
-
-
-  
-  <div class="card">
-    <img src="img2.jpg">
-    <div class="name">Yassine Trabelsi</div>
-  </div>
-
-  <div class="card">
-    <img src="img3.jpg">
-    <div class="name">Mariem Khelifi</div>
-  </div>
-
-
-  
-  <div class="card">
-    <img src="img2.jpg">
-    <div class="name">Yassine Trabelsi</div>
-  </div>
-
-  <div class="card">
-    <img src="img.jpg">
-    <div class="name">Mariem Khelifi</div>
-  </div>
 
 
 
 </div>
 <!-- MODAL -->
+ <script>
+  function searchStudent() {
+  let input = document.getElementById("searchInput").value.toLowerCase();
+  let cards = document.querySelectorAll(".card");
+
+  cards.forEach(card => {
+    let name = card.getAttribute("data-name").toLowerCase();
+    if (name.includes(input)) {
+      card.style.display = "block";
+    } else {
+      card.style.display = "none";
+    }
+  });
+}
+
+</script>
 <div id="modal" onclick="closeModal()">
   <span class="close">&times;</span>
   <img id="modalImg">
