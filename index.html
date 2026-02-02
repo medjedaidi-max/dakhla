@@ -2,129 +2,208 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Added for responsiveness -->
   <title>Section Informatique</title>
 
   <style>
     /* MODAL STYLE */
-.hidden {
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-}
-#modal {
-  display: none;
-  position: fixed;
-  z-index: 999;
-  inset: 0;
-  background: rgba(0,0,0,0.9);
-  justify-content: center;
-  align-items: center;
-}
-#searchInput {
-  width: 80%;
-  max-width: 400px;
-  padding: 12px 15px;
-  margin-bottom: 30px;
-  border-radius: 25px;
-  border: none;
-  outline: none;
-  font-size: 1em;
-  text-align: center;
-}
-
-
-#modal img {
-  max-width: 90%;
-  max-height: 90%;
-  border-radius: 15px;
-  animation: zoom 0.4s ease;
-}
-
-.close {
-  position: absolute;
-  top: 25px;
-  right: 35px;
-  font-size: 40px;
-  color: white;
-  cursor: pointer;
-}
-
-@keyframes zoom {
-  from { transform: scale(0.5); }
-  to { transform: scale(1); }
-}
-
-/* cursor */
-.card img {
-  cursor: pointer;
-}
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #020617, #0f172a);
-      color: white;
+    .hidden {
+      opacity: 0;
+      pointer-events: none;
+      position: absolute;
+    }
+    #modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+    }
+    #searchInput {
+      width: 80%;
+      max-width: 400px;
+      padding: 12px 15px;
+      margin-bottom: 30px;
+      border-radius: 25px;
+      border: none;
+      outline: none;
+      font-size: 1em;
       text-align: center;
+      background: rgba(255,255,255,0.1);
+      color: white;
+      backdrop-filter: blur(10px); /* Added glassmorphism effect */
+    }
+    #searchInput::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+
+    #modal img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 15px;
+      animation: zoom 0.4s ease;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+
+    .close {
+      position: absolute;
+      top: 25px;
+      right: 35px;
+      font-size: 40px;
+      color: white;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .close:hover {
+      color: #ff6b6b;
+    }
+
+    @keyframes zoom {
+      from { transform: scale(0.5); }
+      to { transform: scale(1); }
+    }
+
+    /* cursor */
+    .card img {
+      cursor: pointer;
+    }
+    body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(45deg, #020617, #0f172a, #1e293b, #334155); /* Base gradient */
+  background-size: 400% 400%; /* Larger size for animation */
+  animation: gradientShift 15s ease infinite; /* Smooth color shift */
+  color: white;
+  text-align: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Optional: Add subtle floating particles for extra aesthetic */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 50%, rgba(56, 189, 248, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 80% 20%, rgba(12, 112, 226, 0.1) 0%, transparent 50%),
+              radial-gradient(circle at 40% 80%, rgba(96, 165, 250, 0.1) 0%, transparent 50%);
+  animation: floatParticles 20s ease-in-out infinite alternate;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes floatParticles {
+  0% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
+  100% { transform: translateY(-20px) rotate(360deg); opacity: 0.8; }
+}
+    
+
+    /* HEADER SECTION */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; /* Align to left */
+      padding: 25px 30px;
+      gap: 20px; /* Space between logo and text */
     }
 
     /* LOGO */
-    .logo {
-      margin-top: 25px;
+    .logo img {
+      width: 150px; /* Increased size for clarity */
+      animation: pop 1s ease;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)) contrast(1.2) brightness(1.1); /* Enhanced filter for sharper, clearer appearance */
     }
 
-    .logo img {
-      width: 120px;
-      animation: pop 1s ease;
+    .header-text {
+      text-align: left;
     }
 
     h1 {
-      margin: 15px 0 30px;
-      font-size: 75px;
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4rem); /* Responsive font size */
       letter-spacing: 2px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    }
+
+    h3 {
+      margin: 5px 0 0;
+      font-size: 1.2rem;
+      opacity: 0.8;
+    }
+
+    /* SEARCH INPUT */
+    .search-container {
+      text-align: center;
+      margin-bottom: 30px;
     }
 
     /* GALLERY */
     .gallery {
        display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 25px;
-  padding: 30px;
-  justify-items: center;
+       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+       gap: 25px;
+       padding: 30px;
+       justify-items: center;
+       max-width: 1200px;
+       margin: 0 auto;
     }
 
     .card {
-       background: #020617;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.6);
-  width: 220px;        
-  margin: auto;          
-  transform: translateY(50px);
-  opacity: 0;
-  animation: fadeUp 0.8s ease forwards;
+       background: linear-gradient(145deg, #020617, #1e293b); /* Subtle gradient */
+       border-radius: 20px;
+       overflow: hidden;
+       box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+       width: 220px;        
+       margin: auto;          
+       transform: translateY(50px);
+       opacity: 0;
+       animation: fadeUp 0.8s ease forwards;
+       transition: transform 0.3s ease, box-shadow 0.3s ease;
+       position: relative;
     }
 
     .card:nth-child(1) { animation-delay: 0.1s; }
     .card:nth-child(2) { animation-delay: 0.2s; }
     .card:nth-child(3) { animation-delay: 0.3s; }
+    .card:nth-child(4) { animation-delay: 0.4s; }
+    .card:nth-child(5) { animation-delay: 0.5s; }
+    .card:nth-child(6) { animation-delay: 0.6s; }
 
     /* PORTRAIT IMAGE */
     .card img {
       width: 100%;
       height: 300px;   /* Portrait */
       object-fit: cover;
+      transition: transform 0.3s ease;
     }
 
     .name {
       padding: 14px;
-      background: #0c70e2;
+      background: linear-gradient(90deg, #0c70e2, #38bdf8);
       font-weight: bold;
       font-size: 1.1em;
-      border-top: 3px solid #38bdf8;
+      border-top: 3px solid #60a5fa;
+      color: white;
     }
 
     .card:hover {
-      transform: scale(1.06);
-      transition: 0.3s ease;
+      transform: scale(1.06) translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+    }
+
+    .card:hover img {
+      transform: scale(1.05);
     }
 
     @keyframes fadeUp {
@@ -138,83 +217,109 @@
       from { transform: scale(0); }
       to { transform: scale(1); }
     }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+        gap: 10px;
+      }
+      .header-text {
+        text-align: center;
+      }
+      .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 15px;
+        padding: 20px;
+      }
+      .card {
+        width: 180px;
+      }
+      .card img {
+        height: 250px;
+      }
+      h1 {
+        font-size: 2.5rem;
+      }
+      .logo img {
+        width: 100px; /* Smaller on mobile for clarity */
+      }
+    }
   </style>
 </head>
 
 <body>
 
-<!-- LOGO -->
-<div class="logo">
-  <img src="logo.png">
+<!-- HEADER SECTION -->
+<div class="header">
+  <div class="logo">
+    <img src="logo.png" alt="Logo">
+  </div>
+  <div class="header-text">
+    <h1>BAC INFO 2K26</h1>
+    <h3>lycée El canel </h3>
+  </div>
 </div>
 
-<h1> BAC INFO 2K26</h1>
-<h3> lyceé El canel</h3> <input 
-  type="text" 
-  id="searchInput" 
-  placeholder="Search by name..."
-  onkeyup="searchStudent()"
->
+<!-- SEARCH INPUT -->
+<div class="search-container">
+  <input 
+    type="text" 
+    id="searchInput" 
+    placeholder="Search by name..."
+    onkeyup="searchStudent()"
+  >
+</div>
 
 <div class="gallery">
-
   <div class="card" data-name="omran la3miri hama jedaidi">
-    <img src="ena.jpg"
-    onclick="openModal(this)">
-    <div class="name">omran</div>
+    <img src="ena.jpg" alt="Omran" onclick="openModal(this)">
+    <div class="name">Omran</div>
   </div>
-  <div class="card" data-name="nsibi badr bayoudhi bdr ">
-  <img src="BDR.jpeg" onclick="openModal(this)">
-  <div class="name">Badr</div>
-</div>
-  <div class="card" data-name="hsn hassen mahouachi hssouna ">
-  <img src="hasssen.jpeg" onclick="openModal(this)">
-  <div class="name">hassen</div>
-</div>
-  <div class="card" data-name="Ahmed Ben Ali">
-  <img src="img1.jpg" onclick="openModal(this)">
-  <div class="name">Ahmed Ben Ali</div>
-</div>
-<div class="card" data-name="Ahmed Ben Ali">
-  <img src="img1.jpg" onclick="openModal(this)">
-  <div class="name">Ahmed Ben Ali</div>
-</div>
-<div class="card" data-name="Ahmed Ben Ali">
-  <img src="img1.jpg" onclick="openModal(this)">
-  <div class="name">Ahmed Ben Ali</div>
-</div>
-<div class="card" data-name="Ahmed Ben Ali">
-  <img src="img1.jpg" onclick="openModal(this)">
-  <div  class="name">Ahmed Ben Ali</div>
+  <div class="card" data-name="nsibi badr bayoudhi bdr">
+    <img src="BDR.jpeg" alt="Badr" onclick="openModal(this)">
+    <div class="name">Badr</div>
+  </div>
+  <div class="card" data-name="hsn hassen mahouachi hssouna">
+    <img src="hasssen.jpeg" alt="Hassen" onclick="openModal(this)">
+    <div class="name">Hassen</div>
+  </div>
+  <div class="card" data-name="ahmed ben ali">
+    <img src="img1.jpg" alt="Ahmed Ben Ali" onclick="openModal(this)">
+    <div class="name">Ahmed Ben Ali</div>
+  </div>
+  <div class="card" data-name="ahmed ben ali">
+    <img src="img1.jpg" alt="Ahmed Ben Ali" onclick="openModal(this)">
+    <div class="name">Ahmed Ben Ali</div>
+  </div>
+  <div class="card" data-name="ahmed ben ali">
+    <img src="img1.jpg" alt="Ahmed Ben Ali" onclick="openModal(this)">
+    <div class="name">Ahmed Ben Ali</div>
+  </div>
 </div>
 
-
-
-
-
-</div>
 <!-- MODAL -->
- <script>
-  function searchStudent() {
-  let input = document.getElementById("searchInput").value.toLowerCase();
-  let cards = document.querySelectorAll(".card");
-
-  cards.forEach(card => {
-    let name = card.getAttribute("data-name").toLowerCase();
-    if (name.includes(input)) {
-      card.style.display = "block";
-    } else {
-      card.style.display = "none";
-    }
-  });
-}
-
-</script>
 <div id="modal" onclick="closeModal()">
-  <span class="close">&times;</span>
-  <img id="modalImg">
-</div> 
+  <span class="close" onclick="closeModal()">&times;</span>
+  <img id="modalImg" alt="Modal Image">
+</div>
+
 <script>
+  function searchStudent() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let cards = document.querySelectorAll(".card");
+    cards.forEach(card => {
+      let name = card.getAttribute("data-name").toLowerCase();
+      if (name.includes(input)) {
+        card.style.display = "block";
+      } else {
+        card.style.display = "none";
+      }
+    });
+  }
+
   function openModal(img) {
     document.getElementById("modal").style.display = "flex";
     document.getElementById("modalImg").src = img.src;
@@ -224,5 +329,5 @@
     document.getElementById("modal").style.display = "none";
   }
 </script>
-</body>
+</body> 
 </html>
