@@ -230,16 +230,15 @@ body::before {
         text-align: center;
       }
       .gallery {
-        grid-template-columns: 1fr; /* Single column for stacking */
-        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* Allow side-by-side with smaller cards */
+        gap: 15px;
         padding: 20px;
       }
       .card {
-        width: 100%; /* Full width for larger appearance */
-        max-width: 300px; /* Optional max width to prevent too wide */
+        width: 150px; /* Smaller width for side-by-side */
       }
       .card img {
-        height: 350px; /* Taller images for better visibility */
+        height: 200px; /* Shorter images to fit smaller cards */
       }
       h1 {
         font-size: 2.5rem;
