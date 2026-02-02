@@ -148,6 +148,68 @@ body::before {
       margin-bottom: 30px;
     }
 
+    /* ADD BUTTON */
+    .add-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .add-btn {
+      padding: 12px 25px;
+      background: linear-gradient(90deg, #0c70e2, #38bdf8);
+      color: white;
+      border: none;
+      border-radius: 25px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .add-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* ADD MODAL */
+    #addModal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      inset: 0;
+      background: rgba(0,0,0,0.9);
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    #addModal .modal-content {
+      background: rgba(255,255,255,0.1);
+      padding: 30px;
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+    }
+    #addModal input {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+    }
+    #addModal button {
+      margin: 10px 5px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    #previewImg {
+      max-width: 100%;
+      max-height: 200px;
+      margin: 10px 0;
+      border-radius: 10px;
+    }
+
     /* GALLERY */
     .gallery {
        display: grid;
@@ -262,8 +324,8 @@ body::before {
     <img src="logo.png" alt="Logo">
   </div>
   <div class="header-text">
-    <h1>BAC INFO 2K26</h1>
-    <h3>Lycée El canel</h3>
+    <h1>NOURANE :DDD</h1>
+    <h3>bent bringa</h3>
   </div>
 </div>
 
@@ -277,7 +339,12 @@ body::before {
   >
 </div>
 
-<div class="gallery">
+<!-- ADD BUTTON -->
+<div class="add-container">
+  <button class="add-btn" onclick="openAddModal()">Add</button>
+</div>
+
+<div class="gallery" id="gallery">
   <div class="card" data-name="omran la3miri hama jedaidi">
     <img src="ena.jpg" alt="Omran" onclick="openModal(this)">
     <div class="name">Omran</div>
@@ -310,6 +377,18 @@ body::before {
   <img id="modalImg" alt="Modal Image">
 </div>
 
+<!-- ADD MODAL -->
+<div id="addModal">
+  <div class="modal-content">
+    <h2>Add New Student</h2>
+    <input type="text" id="studentName" placeholder="Enter name" required>
+    <input type="file" id="studentImage" accept="image/*" required onchange="previewImage()">
+    <img id="previewImg" style="display:none;" alt="Preview">
+    <button onclick="acceptAdd()">Accept</button>
+    <button onclick="closeAddModal()">Cancel</button>
+  </div>
+</div>
+
 <script>
   function searchStudent() {
     let input = document.getElementById("searchInput").value.toLowerCase();
@@ -331,6 +410,53 @@ body::before {
 
   function closeModal() {
     document.getElementById("modal").style.display = "none";
+  }
+
+  function openAddModal() {
+    document.getElementById("addModal").style.display = "flex";
+    document.getElementById("previewImg").style.display = "none";
+  }
+
+  function closeAddModal() {
+    document.getElementById("addModal").style.display = "none";
+    document.getElementById("studentName").value = "";
+    document.getElementById("studentImage").value = "";
+  }
+
+  function previewImage() {
+    let file = document.getElementById("studentImage").files[0];
+    if (file) {
+      let reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById("previewImg").src = e.target.result;
+        document.getElementById("previewImg").style.display = "block";
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  function acceptAdd() {
+    let name = document.getElementById("studentName").value.trim();
+    let file = document.getElementById("studentImage").files[0];
+    if (!name || !file) {
+      alert("Name and image are required!");
+      return;
+    }
+    let reader = new FileReader();
+    reader.onload = function(e) {
+      let imgSrc = e.target.result;
+      let gallery = document.getElementById("gallery");
+      let newCard = document.createElement("div");
+      newCard.className = "card";
+      newCard.setAttribute("data-name", name.toLowerCase());
+      newCard.innerHTML = `
+        <img src="${imgSrc}" alt="${name}" onclick="openModal(this)">
+        <div class="name">${name}</div>
+      `;
+      gallery.appendChild(newCard);
+      closeAddModal();
+    };
+    reader.readAsDataURL(file);
   }
 </script>
 </body> 
