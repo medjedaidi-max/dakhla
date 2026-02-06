@@ -6,6 +6,31 @@
   <title>Section Informatique</title>
 
   <style>
+    .countdown-box {
+  margin: 30px auto;
+  padding: 20px 30px;
+  max-width: 400px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.countdown-box h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  background: linear-gradient(45deg, #38bdf8, #0c70e2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+#countdown {
+  margin-top: 10px;
+  font-size: 1.3rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
     /* MODAL STYLE */
     .hidden {
       opacity: 0;
@@ -336,6 +361,12 @@
   </div>
 </div>
 
+<div class="countdown-box">
+  <h2>⏳ Session Principale ⏳ </h2>
+  <h3>انطلاق الدورة الرئيسية</h3>
+  <p id="countdown"></p>
+</div>
+
 <!-- SEARCH INPUT -->
 <div class="search-container">
   <input 
@@ -383,6 +414,32 @@
       }
     });
   }
+  
+  // 🔴 بدّل التاريخ حسب أول نهار BAC
+  // مثال: 2 جوان 2026
+  const bacDate = new Date("2026-06-03T08:00:00").getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = bacDate - now;
+
+    if (distance < 0) {
+      document.getElementById("countdown").innerHTML = "اللهم اننا نسألك التوفيق و النجاح ";
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("countdown").innerHTML =
+      `${days} jours • ${hours}h • ${minutes}m • ${seconds}s`;
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+
 
   function openModal(img) {
     document.getElementById("modal").style.display = "flex";
